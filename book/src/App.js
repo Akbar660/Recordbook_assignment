@@ -42,13 +42,21 @@ function App() {
 
   return (
     <div>
-      {state.length>0 && <Table datas={state} />}
+      {state.length > 0 && <Table datas={state} />}
 
       <div className="btndivmargin">
-        <button className="btn" onClick={() => setOpen(!open)}>
+        <button
+          className="btn"
+          onClick={() => {
+            setOpen(!open);
+            setOpen1(false);
+          }}
+        >
           Addname
         </button>
-        <button className="btn" onClick={()=>setOpen1(!open1)}>View Result</button>
+        <button className="btn" onClick={() => setOpen1(!open1)}>
+          View Result
+        </button>
       </div>
       {open && (
         <div className="formdiv">
@@ -67,9 +75,11 @@ function App() {
             <label>
               Rank:
               <input
-                type="text"
+                type="number"
                 value={rank}
                 required
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                min="1"
                 onChange={(e) => setRank(e.target.value)}
               />
             </label>
@@ -118,7 +128,7 @@ function App() {
             <br />
             <br />
 
-          <button className="btn1">save</button>
+            <button className="btn1">save</button>
           </form>
           <button className="btn2" onClick={() => setOpen(!open)}>
             {" "}
@@ -127,12 +137,12 @@ function App() {
         </div>
       )}
 
-{/* view result */}
-   {open1 && (
-     <div className="resultdiv">
-        {state.length>0 && !open && <Result  datas={state}/>}
-     </div>
-   )}
+      {/* view result */}
+      {open1 && (
+        <div className="resultdiv">
+          {state.length > 0 && !open && <Result datas={state} />}
+        </div>
+      )}
     </div>
   );
 }
